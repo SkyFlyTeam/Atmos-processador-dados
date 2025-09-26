@@ -1,12 +1,12 @@
 import express from "express";
-import valoresRouter from "./routes/valores.ts";
+import router from "./routes/index.ts";
 
 const app = express();
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 5004;
 
 app.use(express.json());
 
-app.use("/valores", valoresRouter);
+app.use(router);
 
 app.listen(port, () => {
   console.log(`Servidor rodando em http://localhost:${port}`);
