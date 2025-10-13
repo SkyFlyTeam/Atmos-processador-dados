@@ -1,15 +1,15 @@
 import { Router } from "express";
 import type {Request, Response } from "express";
-import { TipoParametroRepository } from "../repository/tipoParametroRepository.ts";
-import { EstacaoRepository } from "../repository/estacaoRepository.ts";
-import { ValorCapturadoRepository } from "../repository/valorCapturadoRepository.ts";
+import { TipoParametroRepository } from "../repository/tipoParametroRepository";
+import { EstacaoRepository } from "../repository/estacaoRepository";
+import { ValorCapturadoRepository } from "../repository/valorCapturadoRepository";
 
 const router = Router();
 const tipoParametroRepository: TipoParametroRepository = new TipoParametroRepository()
 const estacaoRepository: EstacaoRepository = new EstacaoRepository()
 const valorCapturadoRepository: ValorCapturadoRepository = new ValorCapturadoRepository()
 
-router.get("/", async (req: Request, res: Response) => {
+router.post("/", async (req: Request, res: Response) => {
     const json_ids = await tipoParametroRepository.getAllJsonIds()
     const estacoes_uuids = await estacaoRepository.getAllEstacaoUUIDs()
     const dadosRecebidos = req.body;

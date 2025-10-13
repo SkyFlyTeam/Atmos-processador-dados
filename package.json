@@ -3,20 +3,28 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "node --loader ts-node/esm src/index.ts"
+    "start": "tsx src/index.ts",
+    "dev": "tsx watch src/index.ts",
+    "build": "tsc",
+    "start:prod": "node dist/index.js"
   },
   "author": "",
   "license": "ISC",
   "description": "",
   "devDependencies": {
     "@types/express": "^5.0.3",
+    "tsx": "^4.19.0",
     "ts-node": "^10.9.2",
     "typescript": "^5.9.2"
   },
   "dependencies": {
     "dotenv": "^17.2.2",
     "express": "^5.1.0",
-    "sequelize": "^6.37.7"
+    "mongodb": "^6.20.0",
+    "mqtt": "^5.14.1",
+    "pg": "^8.16.3",
+    "sequelize": "^6.37.7",
+    "sequelize-typescript": "^2.1.6"
   },
   "type": "module"
 }

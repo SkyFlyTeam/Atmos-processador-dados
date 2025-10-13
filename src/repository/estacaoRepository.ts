@@ -1,4 +1,4 @@
-import type { Estacao } from "../interfaces/estacao.ts";
+import type { Estacao } from "../interfaces/estacao";
 
 export interface EstacaoRepositoryOptions {
     baseUrl?: string;

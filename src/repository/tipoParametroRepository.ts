@@ -1,4 +1,4 @@
-import type { TipoParametro } from "../interfaces/tipoParametro.ts";
+import type { TipoParametro } from "../interfaces/tipoParametro";
 
 export interface TipoParametroRepositoryOptions {
     baseUrl?: string;
