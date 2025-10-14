@@ -3,6 +3,7 @@ import type {Request, Response } from "express";
 import { TipoParametroRepository } from "../repository/tipoParametroRepository.ts";
 import { EstacaoRepository } from "../repository/estacaoRepository.ts";
 import { ValorCapturadoRepository } from "../repository/valorCapturadoRepository.ts";
+import { syncMongoToPostgres } from "../services/mongoToPostgresSync.ts";
 
 const router = Router();
 const tipoParametroRepository: TipoParametroRepository = new TipoParametroRepository()
@@ -52,6 +53,16 @@ router.get("/", async (req: Request, res: Response) => {
     }
 
     return res.status(200).send({ "message": "Sucesso no registro dos parâmetros" });
+});
+
+router.post("/sync", async (_req: Request, res: Response) => {
+    try {
+        const summary = await syncMongoToPostgres();
+        return res.status(200).json(summary);
+    } catch (error) {
+        const message = error instanceof Error ? error.message : "Erro desconhecido";
+        return res.status(500).json({ error: message });
+    }
 });
 
 export default router;
