@@ -86,6 +86,15 @@ const parseNumericValue = (value: unknown): number | null => {
   return null;
 };
 
+const getCalibrationComponent = (value: unknown, fallback: number): number => {
+  if (value === null || value === undefined) {
+    return fallback;
+  }
+
+  const parsed = parseNumericValue(value);
+  return parsed === null ? fallback : parsed;
+};
+
 // Função para obter a estação do MongoDB usando o UUID, armazenando em cache para evitar consultas repetidas
 const getStation = async (uuid: string): Promise<StationRecord | null> => {
   // Verifica se a estação já está no cache, caso contrário, realiza a busca no banco
@@ -244,9 +253,13 @@ export const syncMongoToPostgres = async (): Promise<SyncSummary> => {
         continue;
       }
 
+      const offset = getCalibrationComponent(parameter.offset, 0);
+      const factor = getCalibrationComponent(parameter.fator, 1);
+      const calibratedValue = numericValue * factor + offset;
+
       valuesToPersist.push({
         key,
-        valor: numericValue,
+        valor: calibratedValue,
         parametrosPk: parameter.parametroPk,
       });
     }
