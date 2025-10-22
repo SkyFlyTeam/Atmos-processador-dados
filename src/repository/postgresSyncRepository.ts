@@ -12,6 +12,8 @@ export interface StationParameterRecord {
   parametroPk: number;
   tipoParametroPk: number;
   jsonId: string;
+  offset: number | string | null;
+  fator: number | string | null;
 }
 
 // Define a interface para os dados de entrada de valores capturados, com campos 'unixtime', 'parametrosPk', 'valor' e 'estacaoId'
@@ -44,7 +46,9 @@ export const fetchStationParameters = async (
   // SQL para buscar os parâmetros da estação, unindo as tabelas 'parametro' e 'tipo_parametro' com base na chave estrangeira
   const sql = 'SELECT parametro.pk AS "parametroPk",' +
     ' parametro.tipo_parametro_pk AS "tipoParametroPk",' +
-    ' tipo_parametro.json_id AS "jsonId"' +
+    ' tipo_parametro.json_id AS "jsonId",' +
+    ' parametro.offset AS "offset",' +
+    ' parametro.fator AS "fator"' +
     ' FROM parametro' +
     ' INNER JOIN tipo_parametro ON tipo_parametro.pk = parametro.tipo_parametro_pk' +
     ' WHERE parametro.estacao_est_pk = :stationPk';

@@ -114,6 +114,13 @@ Para validar os dados persistidos no Atmos-backend:
 - Certifique-se de que o servidor Atmos-backend esta rodando (default `npm start` na pasta do outro projeto, porta `5000`).
 - No Postman ou navegador, acesse `http://localhost:5000/valor-capturado` (GET). A resposta deve listar os registros gravados pelo processador.
 
+## Calibracao dos valores capturados
+Os valores trazidos do MongoDB sao ajustados automaticamente antes de serem gravados no PostgreSQL.
+
+- `src/repository/postgresSyncRepository.ts`: inclui `offset` e `fator` nas leituras da tabela `parametro`.
+- `src/services/mongoToPostgresSync.ts`: converte valores configurados pelo usuario em numeros e aplica `valorFinal = valorCru * fator + offset`.
+- Quando alguma calibracao nao esta definida, o processamento assume `fator = 1` e `offset = 0` para manter o valor original.
+
 ## Desenvolvimento
 - Tipagem com TypeScript (`npx tsc --noEmit` para checagem).
 - Servidor rodando com `ts-node/esm` (sem hot reload).
