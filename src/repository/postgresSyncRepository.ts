@@ -49,8 +49,8 @@ export const fetchStationParameters = async (
       p.pk AS "parametroPk",
       p.tipo_parametro_pk AS "tipoParametroPk",
       tp.json_id AS "jsonId",
-      COALESCE(p.offset, tp.offset) AS "offset",
-      COALESCE(p.fator, tp.fator) AS "fator"
+      tp.offset AS "offset",
+      tp.fator AS "fator"
     FROM parametro p
     INNER JOIN tipo_parametro tp ON tp.pk = p.tipo_parametro_pk
     WHERE p.estacao_est_pk = :stationPk
