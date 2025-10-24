@@ -44,14 +44,17 @@ export const fetchStationParameters = async (
   stationPk: number,
 ): Promise<Map<string, StationParameterRecord>> => {
   // SQL para buscar os parâmetros da estação, unindo as tabelas 'parametro' e 'tipo_parametro' com base na chave estrangeira
-  const sql = 'SELECT parametro.pk AS "parametroPk",' +
-    ' parametro.tipo_parametro_pk AS "tipoParametroPk",' +
-    ' tipo_parametro.json_id AS "jsonId",' +
-    ' parametro.offset AS "offset",' +
-    ' parametro.fator AS "fator"' +
-    ' FROM parametro' +
-    ' INNER JOIN tipo_parametro ON tipo_parametro.pk = parametro.tipo_parametro_pk' +
-    ' WHERE parametro.estacao_est_pk = :stationPk';
+  const sql = `
+    SELECT
+      p.pk AS "parametroPk",
+      p.tipo_parametro_pk AS "tipoParametroPk",
+      tp.json_id AS "jsonId",
+      COALESCE(p.offset, tp.offset) AS "offset",
+      COALESCE(p.fator, tp.fator) AS "fator"
+    FROM parametro p
+    INNER JOIN tipo_parametro tp ON tp.pk = p.tipo_parametro_pk
+    WHERE p.estacao_est_pk = :stationPk
+  `;
 
   // Executa a consulta SQL para buscar os parâmetros da estação com o ID fornecido
   const records = await sequelize.query<StationParameterRecord>(sql, {
