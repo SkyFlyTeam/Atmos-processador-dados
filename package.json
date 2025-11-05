@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
+    "test": "jest --coverage",
+    "test:unit": "jest --coverage --testPathPattern=\"tests/unit\"",
+    "test:integration": "jest --coverage --runInBand --testPathPattern=\"tests/integration\"",
     "start": "node --loader ts-node/esm src/index.ts"
   },
   "author": "",
@@ -10,6 +13,9 @@
   "description": "",
   "devDependencies": {
     "@types/express": "^5.0.3",
+    "@types/jest": "^30.0.0",
+    "jest": "^29.7.0",
+    "ts-jest": "^29.4.5",
     "ts-node": "^10.9.2",
     "typescript": "^5.9.2"
   },
