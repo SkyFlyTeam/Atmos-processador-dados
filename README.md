@@ -90,6 +90,21 @@ Logs esperados no boot:
 
 Para encerrar use `Ctrl+C`. O servidor fecha o watcher, encerra a conexao com o Mongo e termina o processo.
 
+## Testes automatizados
+- Os testes rodam com Jest e `ts-jest` usando modules ES.
+- Antes de executar, garanta que o Node.js esta disponivel (18+) e que as dependencias foram instaladas.
+
+### Rodando toda a suite
+```bash
+npm test
+```
+
+O comando gera automaticamente a pasta `coverage/` com o relatorio de cobertura. Se preferir rodar Jest uma unica vez sem watch, esse ja e o comportamento padrao.
+
+### Rodando suites especificas
+- Apenas unitarios: `npm run test:unit`
+- Apenas integracao (quando houver testes na pasta `tests/integration`): `npm run test:integration`
+
 ## Sincronizacao automatica
 - Um novo documento inserido na colecao dispara o watcher.
 - A rotina executa: coleta -> validacao -> persistencia no Postgres -> remocao do documento no Mongo.
