@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  processador:
+    build:
+      context: .        
+      dockerfile: Dockerfile     
+    container_name: express-processador
+    ports:
+      - "5003:5000"           
+    environment:
+      - DB_HOST=${DB_HOST}       
+      - DB_PORT=${DB_PORT}
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_NAME=${DB_NAME}
+      - MONGO_URI=${MONGO_URI}
+      - MONGO_DB=${MONGO_DB}
+      - MONGO_COLLECTION=${MONGO_COLLECTION}
